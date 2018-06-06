@@ -18,6 +18,59 @@ info:
   version: "0.6"
   title: Meter Calibration and Sample Analysis API  
   description: IDMS Meter Calibration and Sample Analysis Interface
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                  
 security:
   - application:
       - read 
@@ -27,16 +80,16 @@ paths:
     post: 
       tags:    
         - SampleAnalysis 
-      summary: Create Sample Analysis 
+      summary: Create Sample Analysis from data
       description: Create a sample Analysis Entry
-      operationId: createSampleAnalysis
+      operationId: createSampleAnalysis  
       responses: 
         default: 
           description: successful operation 
         '201':
           description: item created
         '400':
-          description: 'invalid input, object invalid'
+          description: 'invalid input, object invalid '
         '409':
           description: an existing item already exists          
       requestBody: 
@@ -61,7 +114,7 @@ paths:
               schema:
                 type: string
                 example: '1234567'
-                description: 'Sample Analysis ID'
+                description: 'Sample Analysis  ID'
           description: 'item created or udpated'
         '400':
           description: 'invalid input, object invalid'
@@ -1218,7 +1271,7 @@ components:
                   example: ''  
     SamplePoint:
       type: object
-      properties: 
+      properties:   
         ID: 
           type: string
           example: '13-27-042-08W5M - O-LSPV-12A'
