@@ -27,7 +27,7 @@
     "/sampleanalysis" : {
       "post" : {
         "tags" : [ "SampleAnalysis" ],
-        "summary" : "Create Sample Analysis",
+        "summary" : "Create Sample Analysis from data",
         "description" : "Create a sample Analysis Entry",
         "operationId" : "createSampleAnalysis",
         "responses" : {
@@ -38,7 +38,7 @@
             "description" : "item created"
           },
           "400" : {
-            "description" : "invalid input, object invalid"
+            "description" : "invalid input, object invalid "
           },
           "409" : {
             "description" : "an existing item already exists"
