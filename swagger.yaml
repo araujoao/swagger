@@ -1,6 +1,9 @@
 openapi: 3.0.0
 
 servers:
+# Added by API Auto Mocking Plugin
+- description: SwaggerHub API Auto Mocking
+  url: https://virtserver.swaggerhub.com/huskyidms/vmc/v0.5
 - url: '{protocol}://api.idms.com/{version}'
   variables:
     protocol:
