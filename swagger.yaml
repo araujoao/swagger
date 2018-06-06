@@ -1092,10 +1092,40 @@ components:
       properties: 
         ID: 
           type: string 
-          example: '100/16-36-046-05W4/00 - G-FIT12B' 
+          example: '121/03-09-044-23W3 - G-FIT12B'
+        ERPID:
+          type: string
+          description: 'The identification of the meter in the ERP Solution'
+          example: '62060196'
         description:
           type: string 
           example: '' 
+        surfaceLocation:
+          type: string
+          example: '03-09-044-23W3'
+        uwi:
+          type: string
+          example: '121/03-09-044-23W3'
+        floc:
+          type: string
+          description: 'The hierarchy where the meter is located e.g. H1-04-005-00001-100005 '
+          example: 'H1-04-005-00001-100005'
+        businessUnit:
+          type: string
+          description: 'the business unit where the meter is located ' #H1 - HEAVY OIL AND GAS LLOYDMINSTER
+          example: 'H1'
+        district:
+          type: string
+          description: 'the district where the meter is located ' #H1-04 - ALBERTA SOUTH
+          example: 'H1-04'
+        area:
+          type: string
+          description: 'the area in the district where the meter is located ' #H1-04-005 - WILDMERE
+          example: 'H1-04-005' 
+        facility:
+          type: string
+          description: 'the facility where the meter is located ' #H1-04-005-00001 - WILDMERE 10-19 BATTERY
+          example: 'H1-04-005-00001'
         product:
           type: string
           example: 'Oil'
@@ -1108,6 +1138,7 @@ components:
             - Water
             - NGL
             - LPG
+            - NotApplicable
         tag:
           type: string
           example: 'FIT12B'
@@ -1123,6 +1154,11 @@ components:
         changerType:
           type: string
           example: ''
+          enum:
+            - Simplex
+            - Duplex
+            - Flange
+            - NotApplicable
         plateSize:
           type: string
           example: '' 
@@ -1142,6 +1178,7 @@ components:
                   - Temperature
                   - Element
                   - RTU
+                  - NotApplicable 
               elementManufacturer:
                 type: string
                 example: ''
@@ -1184,10 +1221,40 @@ components:
       properties: 
         ID: 
           type: string
-          example: '13-27-042-08W5M'
+          example: '13-27-042-08W5M - O'
         description: 
           type: string 
           example: '' 
+        ERPID:
+          type: string
+          description: 'The identification of the meter in the ERP Solution'
+          example: '62060197'          
+        surfaceLocation:
+          type: string
+          example: '03-09-044-23W3'
+        uwi:
+          type: string
+          example: '121/03-09-044-23W3'
+        floc:
+          type: string
+          description: 'The hierarchy where the SP is located e.g. H1-04-005-00001-100005 '
+          example: 'H1-04-005-00001-100005'
+        businessUnit:
+          type: string
+          description: 'the business unit where the SP is located ' #H1 - HEAVY OIL AND GAS LLOYDMINSTER
+          example: 'H1'
+        district:
+          type: string
+          description: 'the district where the SP is located ' #H1-04 - ALBERTA SOUTH
+          example: 'H1-04'
+        area:
+          type: string
+          description: 'the area in the district where the SP is located ' #H1-04-005 - WILDMERE
+          example: 'H1-04-005' 
+        facility:
+          type: string
+          description: 'the facility where the SP is located ' #H1-04-005-00001 - WILDMERE 10-19 BATTERY
+          example: 'H1-04-005-00001'          
         product: 
           type: string 
           example: 'Gas' 
@@ -1200,6 +1267,10 @@ components:
             - Water
             - NGL
             - LPG
+            - NotApplicable
+        tag:
+          type: string
+          example: 'LSPV-12A'            
         labSamplePointID:
           type: string
           example: ' 21796G' 
