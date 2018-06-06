@@ -1215,7 +1215,7 @@ components:
                   example: ''   
                 elementSAPEquipmentID:
                   type: string
-                  example: ''
+                  example: ''  
     SamplePoint:
       type: object
       properties: 
