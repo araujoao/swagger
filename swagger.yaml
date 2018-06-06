@@ -1212,7 +1212,7 @@ components:
                   example: ''
                 elementSerialNo:
                   type: string
-                  example: ''
+                  example: ''   
                 elementSAPEquipmentID:
                   type: string
                   example: ''
