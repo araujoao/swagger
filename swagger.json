@@ -2,12 +2,21 @@
   "openapi" : "3.0.0",
   "servers" : [ {
     "description" : "SwaggerHub API Auto Mocking",
-    "url" : "https://virtserver.swaggerhub.com/rktsolutions/vmc/v0.5"
+    "url" : "https://virtserver.swaggerhub.com/huskyidms/vmc/0.6"
   }, {
-    "url" : "{protocol}://api.idms.com/{version}"
+    "url" : "{protocol}://api.idms.com/{version}",
+    "variables" : {
+      "protocol" : {
+        "enum" : [ "http", "https" ],
+        "default" : "https"
+      },
+      "version" : {
+        "default" : "0.6"
+      }
+    }
   } ],
   "info" : {
-    "version" : "v0.5",
+    "version" : "0.6",
     "title" : "Meter Calibration and Sample Analysis API",
     "description" : "IDMS Meter Calibration and Sample Analysis Interface"
   },
@@ -761,7 +770,7 @@
     },
     "/schedulle/frequency/query" : {
       "get" : {
-        "tags" : [ "Schedulle" ],
+        "tags" : [ "Frequency" ],
         "summary" : "get the latest changes in schedule using parameters",
         "description" : "get Schedulle Frequency changes from parameters. This functionality helps to improve     scheduling management in the ERP",
         "parameters" : [ {
@@ -1418,16 +1427,54 @@
         "properties" : {
           "ID" : {
             "type" : "string",
-            "example" : "100/16-36-046-05W4/00 - G-FIT12B"
+            "example" : "121/03-09-044-23W3 - G-FIT12B"
+          },
+          "ERPID" : {
+            "type" : "string",
+            "description" : "The identification of the meter in the ERP Solution",
+            "example" : "62060196"
           },
           "description" : {
             "type" : "string",
             "example" : ""
           },
+          "surfaceLocation" : {
+            "type" : "string",
+            "example" : "03-09-044-23W3"
+          },
+          "uwi" : {
+            "type" : "string",
+            "example" : "121/03-09-044-23W3"
+          },
+          "floc" : {
+            "type" : "string",
+            "description" : "The hierarchy where the meter is located e.g. H1-04-005-00001-100005 ",
+            "example" : "H1-04-005-00001-100005"
+          },
+          "businessUnit" : {
+            "type" : "string",
+            "description" : "the business unit where the meter is located ",
+            "example" : "H1"
+          },
+          "district" : {
+            "type" : "string",
+            "description" : "the district where the meter is located ",
+            "example" : "H1-04"
+          },
+          "area" : {
+            "type" : "string",
+            "description" : "the area in the district where the meter is located ",
+            "example" : "H1-04-005"
+          },
+          "facility" : {
+            "type" : "string",
+            "description" : "the facility where the meter is located ",
+            "example" : "H1-04-005-00001"
+          },
           "product" : {
             "type" : "string",
             "example" : "Oil",
-            "enum" : [ "Condensate", "Emulsion", "Oil", "Gas", "Glycol", "Water", "NGL", "LPG" ]
+            "enum" : [ "Condensate", "Emulsion", "Oil", "Gas", "Glycol", "Water", "NGL", "LPG", "NotApplicable" ]
           },
           "tag" : {
             "type" : "string",
@@ -1447,7 +1494,8 @@
           },
           "changerType" : {
             "type" : "string",
-            "example" : ""
+            "example" : "",
+            "enum" : [ "Simplex", "Duplex", "Flange", "NotApplicable" ]
           },
           "plateSize" : {
             "type" : "string",
@@ -1464,7 +1512,7 @@
               "properties" : {
                 "meterType" : {
                   "type" : "string",
-                  "enum" : [ "Static", "Differential", "Temperature", "Element", "RTU" ]
+                  "enum" : [ "Static", "Differential", "Temperature", "Element", "RTU", "NotApplicable" ]
                 },
                 "elementManufacturer" : {
                   "type" : "string",
@@ -1524,16 +1572,58 @@
         "properties" : {
           "ID" : {
             "type" : "string",
-            "example" : "13-27-042-08W5M"
+            "example" : "13-27-042-08W5M - O-LSPV-12A"
           },
           "description" : {
             "type" : "string",
             "example" : ""
           },
+          "ERPID" : {
+            "type" : "string",
+            "description" : "The identification of the meter in the ERP Solution",
+            "example" : "62060197"
+          },
+          "surfaceLocation" : {
+            "type" : "string",
+            "example" : "03-09-044-23W3"
+          },
+          "uwi" : {
+            "type" : "string",
+            "example" : "121/03-09-044-23W3"
+          },
+          "floc" : {
+            "type" : "string",
+            "description" : "The hierarchy where the SP is located e.g. H1-04-005-00001-100005 ",
+            "example" : "H1-04-005-00001-100005"
+          },
+          "businessUnit" : {
+            "type" : "string",
+            "description" : "the business unit where the SP is located ",
+            "example" : "H1"
+          },
+          "district" : {
+            "type" : "string",
+            "description" : "the district where the SP is located ",
+            "example" : "H1-04"
+          },
+          "area" : {
+            "type" : "string",
+            "description" : "the area in the district where the SP is located ",
+            "example" : "H1-04-005"
+          },
+          "facility" : {
+            "type" : "string",
+            "description" : "the facility where the SP is located ",
+            "example" : "H1-04-005-00001"
+          },
           "product" : {
             "type" : "string",
             "example" : "Gas",
-            "enum" : [ "Condensate", "Emulsion", "Oil", "Gas", "Glycol", "Water", "NGL", "LPG" ]
+            "enum" : [ "Condensate", "Emulsion", "Oil", "Gas", "Glycol", "Water", "NGL", "LPG", "NotApplicable" ]
+          },
+          "tag" : {
+            "type" : "string",
+            "example" : "LSPV-12A"
           },
           "labSamplePointID" : {
             "type" : "string",
@@ -1656,7 +1746,7 @@
         "type" : "oauth2",
         "flows" : {
           "clientCredentials" : {
-            "tokenUrl" : "https://virtserver.swaggerhub.com/rktsolutions/vmc/0.3",
+            "tokenUrl" : "https://virtserver.swaggerhub.com/huskyidms/vmc/0.6",
             "scopes" : {
               "write" : "allows modifying resources",
               "read" : "allows reading resources"
