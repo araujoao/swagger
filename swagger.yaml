@@ -1221,7 +1221,7 @@ components:
       properties: 
         ID: 
           type: string
-          example: '13-27-042-08W5M - O'
+          example: '13-27-042-08W5M - O-LSPV-12A'
         description: 
           type: string 
           example: '' 
