@@ -1,0 +1,1678 @@
+{
+  "openapi" : "3.0.0",
+  "servers" : [ {
+    "description" : "SwaggerHub API Auto Mocking",
+    "url" : "https://virtserver.swaggerhub.com/rktsolutions/vmc/v0.5"
+  }, {
+    "url" : "{protocol}://api.idms.com/{version}",
+    "variables" : {
+      "protocol" : {
+        "enum" : [ "http", "https" ],
+        "default" : "https"
+      },
+      "version" : {
+        "default" : "v0.5"
+      }
+    }
+  } ],
+  "info" : {
+    "version" : "v0.5",
+    "title" : "Meter Calibration and Sample Analysis API",
+    "description" : "IDMS Meter Calibration and Sample Analysis Interface"
+  },
+  "security" : [ {
+    "application" : [ "read", "write" ]
+  } ],
+  "paths" : {
+    "/sampleanalysis" : {
+      "post" : {
+        "tags" : [ "SampleAnalysis" ],
+        "summary" : "Create Sample Analysis",
+        "description" : "Create a sample Analysis Entry",
+        "operationId" : "createSampleAnalysis",
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          },
+          "201" : {
+            "description" : "item created"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "409" : {
+            "description" : "an existing item already exists"
+          }
+        },
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/SampleAnalysis"
+              }
+            }
+          },
+          "description" : "Created user object",
+          "required" : true
+        }
+      },
+      "put" : {
+        "tags" : [ "SampleAnalysis" ],
+        "summary" : "Create or Update Sample Analysis",
+        "description" : "Create or Update a sample Analysis Entry",
+        "operationId" : "createorupdateSampleAnalysis",
+        "responses" : {
+          "default" : {
+            "description" : "Successful"
+          },
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "1234567",
+                  "description" : "Sample Analysis ID"
+                }
+              }
+            },
+            "description" : "item created or udpated"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          }
+        },
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/SampleAnalysis"
+              }
+            }
+          },
+          "description" : "Created user object",
+          "required" : true
+        }
+      }
+    },
+    "/sampleanalysis/{analysisID}" : {
+      "get" : {
+        "tags" : [ "SampleAnalysis" ],
+        "summary" : "Finds  Sample Analysis by AnalysisID",
+        "operationId" : "getSampleAnalysisByID",
+        "description" : "By passing analysisID , you can search for  available Sample Analysis in the system. Returns a single Sample Analysis \n",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "analysisID",
+          "description" : "ID of the Analysis to return",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "example" : "123456",
+            "description" : "the IDMS sample analysis id "
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SampleAnalysis"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "SampleAnalysis" ],
+        "summary" : "Delete   Sample Analysis using  AnalysisID (soft delete)",
+        "operationId" : "deleteAnalysisByID",
+        "description" : "By passing analysisID, you can delete  available Sample Analysis in the system.(soft delete) \n",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "analysisID",
+          "description" : "ID of the Analysis to delete",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful"
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          },
+          "401" : {
+            "description" : "Notfound"
+          }
+        }
+      }
+    },
+    "/sampleanalysis/query" : {
+      "get" : {
+        "tags" : [ "SampleAnalysis" ],
+        "summary" : "find  sample analysis with  parameters",
+        "description" : "Find all sample analysis satisfying the parameters",
+        "parameters" : [ {
+          "name" : "samplePoinIDist",
+          "in" : "query",
+          "description" : "List of IDMS Sample Point IDs",
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          },
+          "style" : "form",
+          "explode" : false
+        }, {
+          "name" : "dateStart",
+          "in" : "query",
+          "description" : "Start Date of the result set requested",
+          "schema" : {
+            "type" : "string",
+            "format" : "date"
+          }
+        }, {
+          "name" : "dateEnd",
+          "in" : "query",
+          "description" : "End Date of the result set requested",
+          "schema" : {
+            "type" : "string",
+            "format" : "date"
+          }
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "if the query results span multiple pages, return this page.",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 1
+          }
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "Number of results per page",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "sortAsc",
+          "in" : "query",
+          "description" : "ascendent sort order attribute",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "sortDesc",
+          "in" : "query",
+          "description" : "descendent sort order attribute",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/SampleAnalysis"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Notfound"
+          }
+        }
+      }
+    },
+    "/meter" : {
+      "post" : {
+        "tags" : [ "Meter" ],
+        "summary" : "Create Meter",
+        "description" : "Create a Meter Entry",
+        "operationId" : "createMeter",
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          },
+          "201" : {
+            "description" : "item created"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "409" : {
+            "description" : "an existing item already exists"
+          }
+        },
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Meter"
+              }
+            }
+          },
+          "description" : "Created user object",
+          "required" : true
+        }
+      },
+      "put" : {
+        "tags" : [ "Meter" ],
+        "summary" : "Create or Update a Neter",
+        "description" : "Create or Update a Meter Entry",
+        "operationId" : "createorupdateMeter",
+        "responses" : {
+          "default" : {
+            "description" : "Successful"
+          },
+          "201" : {
+            "description" : "item created or udpated"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          }
+        },
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Meter"
+              }
+            }
+          },
+          "description" : "Created user object",
+          "required" : true
+        }
+      }
+    },
+    "/meter/{meterID}" : {
+      "get" : {
+        "tags" : [ "Meter" ],
+        "summary" : "Finds  Meter  by meterID",
+        "operationId" : "getMeterByID",
+        "description" : "By passing IDMS Meter ID you can search for  available Meter in the system. Returns a single Meter\n",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "meterID",
+          "description" : "ID of the Meter Calibration to return",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Meter"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Meter" ],
+        "summary" : "Delete Meter  by meterID",
+        "operationId" : "deleteMeterByID",
+        "description" : "By passing Meter ID, you can delete  available Meter  in the system. \n",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "meterID",
+          "description" : "ID of the Analysis to delete",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful"
+          },
+          "400" : {
+            "description" : "bad input parameter "
+          },
+          "401" : {
+            "description" : "Notfound"
+          }
+        }
+      }
+    },
+    "/meter/query" : {
+      "get" : {
+        "tags" : [ "Meter" ],
+        "summary" : "find sample analysis using parameters",
+        "description" : "Find sample analysis using parameters",
+        "parameters" : [ {
+          "name" : "businessUnit",
+          "in" : "query",
+          "description" : "The Business Unit",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "district",
+          "in" : "query",
+          "description" : "the District in the Business Unit",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "area",
+          "in" : "query",
+          "description" : "the Area in the District",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "if the query results span multiple pages, return this page.",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 1
+          }
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "Number of results per page",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "sortAsc",
+          "in" : "query",
+          "description" : "ascendent sort order attribute",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "sortDesc",
+          "in" : "query",
+          "description" : "descendent sort order attribute",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Meter"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          },
+          "401" : {
+            "description" : "Notfound"
+          }
+        }
+      }
+    },
+    "/samplepoint" : {
+      "post" : {
+        "tags" : [ "SamplePoint" ],
+        "summary" : "Create SamplePoint",
+        "description" : "Create a Sample Point  Entry",
+        "operationId" : "createSamplePoint",
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          },
+          "201" : {
+            "description" : "item created"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          },
+          "409" : {
+            "description" : "an existing item already exists"
+          }
+        },
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/SamplePoint"
+              }
+            }
+          },
+          "description" : "Created user object",
+          "required" : true
+        }
+      },
+      "put" : {
+        "tags" : [ "SamplePoint" ],
+        "summary" : "Create or Update a Sample Point",
+        "description" : "Create or Update a SamplePoint",
+        "operationId" : "createorupdateSamplePoint",
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          },
+          "201" : {
+            "description" : "item created or udpated"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          }
+        },
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/SamplePoint"
+              }
+            }
+          },
+          "description" : "Created user object",
+          "required" : true
+        }
+      }
+    },
+    "/samplepoint/{samplepointID}" : {
+      "get" : {
+        "tags" : [ "SamplePoint" ],
+        "summary" : "Finds  SamplePoint  by samplePointID",
+        "operationId" : "getMeterByID",
+        "description" : "By passing IDMS you samplepointID  search for  available Sample Point in the system. Returns a single Sample Point\n",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "samplepointID",
+          "description" : "IDMS Sample Point Identification",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/SamplePoint"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Notfound"
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "SamplePoint" ],
+        "summary" : "Delete SamplePoint by samplepointID",
+        "operationId" : "deleteSamplePointByID",
+        "description" : "By passing samplepointID, you can delete  available SamplePoint  in the system. \n",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "samplepointID",
+          "description" : "IDMS ID of the sample point to delete",
+          "required" : true,
+          "schema" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful"
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          },
+          "401" : {
+            "description" : "Notfound"
+          }
+        }
+      }
+    },
+    "/samplepoint/query" : {
+      "get" : {
+        "tags" : [ "SamplePoint" ],
+        "summary" : "find sample points using parameters",
+        "description" : "Find sample points using parameters",
+        "parameters" : [ {
+          "name" : "businessUnit",
+          "in" : "query",
+          "description" : "The Business Unit",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "district",
+          "in" : "query",
+          "description" : "the District in the Business Unit",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "area",
+          "in" : "query",
+          "description" : "the Area in the District",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "if the query results span multiple pages, return this page.",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 1
+          }
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "Number of results per page",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "sortAsc",
+          "in" : "query",
+          "description" : "ascendent sort order attribute",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "sortDesc",
+          "in" : "query",
+          "description" : "descendent sort order attribute",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/SamplePoint"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Notfound"
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    },
+    "/documents/query" : {
+      "get" : {
+        "tags" : [ "Documents" ],
+        "summary" : "retrieves documents for a using parameters",
+        "description" : "Find sample points using parameters",
+        "parameters" : [ {
+          "name" : "documentGroupType",
+          "in" : "query",
+          "description" : "describe the document group",
+          "schema" : {
+            "type" : "string",
+            "enum" : [ "samplepoint", "meter" ]
+          },
+          "required" : true
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "if the query results span multiple pages, return this page.",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 1
+          }
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "Number of results per page",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "sortAsc",
+          "in" : "query",
+          "description" : "ascendent sort order attribute",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "sortDesc",
+          "in" : "query",
+          "description" : "descendent sort order attribute",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Documents"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    },
+    "/documents/query/{idmsDocID}" : {
+      "get" : {
+        "tags" : [ "Documents" ],
+        "summary" : "retrieves the pdf file of the doc metadata for a using parameters",
+        "description" : "retrieves the pdf file of the doc metadata",
+        "parameters" : [ {
+          "name" : "idmsDocID",
+          "in" : "path",
+          "description" : "the pdf document to retrieve",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful",
+            "content" : {
+              "application/pdf" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Document"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          },
+          "401" : {
+            "description" : "Notfound"
+          }
+        }
+      }
+    },
+    "/workorder/notification" : {
+      "put" : {
+        "tags" : [ "WorkOrder" ],
+        "summary" : "Create Work Order Notification",
+        "description" : "Create a Work Order Notification Entry",
+        "operationId" : "createWorkOrderNotification",
+        "responses" : {
+          "default" : {
+            "description" : "successful operation"
+          },
+          "201" : {
+            "description" : "item created"
+          },
+          "400" : {
+            "description" : "invalid input, object invalid"
+          }
+        },
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/WorkOrderNotification"
+              }
+            }
+          },
+          "description" : "Created Work Order Notification object",
+          "required" : true
+        }
+      }
+    },
+    "/schedulle/frequency/query" : {
+      "get" : {
+        "tags" : [ "Schedulle" ],
+        "summary" : "get the latest changes in schedule using parameters",
+        "description" : "get Schedulle Frequency changes from parameters. This functionality helps to improve     scheduling management in the ERP",
+        "parameters" : [ {
+          "name" : "dateStart",
+          "in" : "query",
+          "description" : "Start Date of the result set requested",
+          "schema" : {
+            "type" : "string",
+            "format" : "date"
+          }
+        }, {
+          "name" : "dateEnd",
+          "in" : "query",
+          "description" : "End Date of the result set requested",
+          "schema" : {
+            "type" : "string",
+            "format" : "date"
+          }
+        }, {
+          "name" : "page",
+          "in" : "query",
+          "description" : "if the query results span multiple pages, return this page.",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32",
+            "default" : 1
+          }
+        }, {
+          "name" : "pageSize",
+          "in" : "query",
+          "description" : "Number of results per page",
+          "schema" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }, {
+          "name" : "sortAsc",
+          "in" : "query",
+          "description" : "ascendent sort order attribute",
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "sortDesc",
+          "in" : "query",
+          "description" : "descendent sort order attribute",
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/ScheduleFrequency"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "bad input parameter"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "SampleAnalysis" : {
+        "type" : "object",
+        "properties" : {
+          "header" : {
+            "type" : "object",
+            "properties" : {
+              "analysisType" : {
+                "type" : "string",
+                "enum" : [ "C6+", "C7+", "C10+", "C12+", "C15+", "C30+", "GIS", "Shrinkage Factor", "Density", "Water Content", "LPG", "Engine Oil", "engine Oil Quality" ]
+              },
+              "businessUnit" : {
+                "type" : "string",
+                "description" : "The business unit for this Sample Analysis",
+                "example" : "H1"
+              },
+              "district" : {
+                "type" : "string",
+                "description" : "The district for this Sample Analysis",
+                "example" : "H1-O5"
+              },
+              "area" : {
+                "type" : "string",
+                "description" : "Sample Analysis owner area",
+                "example" : "H1-05-001"
+              },
+              "facility" : {
+                "type" : "string",
+                "description" : "Sample Analysis owner facility",
+                "example" : "H1-05-001-00014"
+              }
+            }
+          },
+          "interfaceMeterCode" : {
+            "type" : "string",
+            "example" : "000000000"
+          },
+          "samplePointCode" : {
+            "type" : "string",
+            "example" : "000000000"
+          },
+          "samplePointName" : {
+            "type" : "string",
+            "example" : "Sample Point one"
+          },
+          "samplePointLoc" : {
+            "type" : "string",
+            "example" : "01-03-014-05W6"
+          },
+          "labProdCode" : {
+            "type" : "string",
+            "example" : "LIQUID"
+          },
+          "wellCodeLoc" : {
+            "type" : "string",
+            "example" : "00/-03-069-07W6/00"
+          },
+          "wellType" : {
+            "type" : "string",
+            "example" : "Gas"
+          },
+          "kbElevation" : {
+            "type" : "number",
+            "format" : "float",
+            "example" : "723.6"
+          },
+          "kbElevationUnit" : {
+            "type" : "string",
+            "example" : "m"
+          },
+          "gradeElevation" : {
+            "type" : "number",
+            "format" : "float",
+            "example" : "718.7"
+          },
+          "gradeElevationUnit" : {
+            "type" : "string",
+            "example" : "m"
+          },
+          "wellCode" : {
+            "type" : "string",
+            "example" : "377187"
+          },
+          "poolCode" : {
+            "type" : "string",
+            "example" : "Commingled Mfp9529"
+          },
+          "sourceLab" : {
+            "type" : "string",
+            "example" : "Exova Labs"
+          },
+          "fileNo" : {
+            "type" : "string",
+            "example" : "123400"
+          },
+          "containerNo" : {
+            "type" : "string",
+            "example" : "EX10428"
+          },
+          "sampler" : {
+            "type" : "string",
+            "example" : "Intricate Group"
+          },
+          "operator" : {
+            "type" : "string",
+            "example" : "Husky Energy, inc"
+          },
+          "facility" : {
+            "type" : "string",
+            "example" : "Tucker Plant"
+          },
+          "areaDesc" : {
+            "type" : "string",
+            "example" : "Tucker"
+          },
+          "dateSampledD" : {
+            "type" : "string",
+            "example" : "6/14/2017"
+          },
+          "dateReceivedD" : {
+            "type" : "string",
+            "example" : "6/15/2017"
+          },
+          "dateAnalyzedD" : {
+            "type" : "string",
+            "example" : "6/21/2017"
+          },
+          "sourceDesc" : {
+            "type" : "string",
+            "example" : "Separator - 1 inch ball valve D/S meter"
+          },
+          "sourcePress" : {
+            "type" : "string",
+            "example" : "1010"
+          },
+          "sourcePressUnits" : {
+            "type" : "string",
+            "example" : "kPa"
+          },
+          "sourceTemp" : {
+            "type" : "string",
+            "example" : "6"
+          },
+          "sourceTempUnits" : {
+            "type" : "string",
+            "example" : "C"
+          },
+          "containSampPress" : {
+            "type" : "string",
+            "example" : ""
+          },
+          "containSampPressUnits" : {
+            "type" : "string",
+            "example" : "kPa"
+          },
+          "containSampTemp" : {
+            "type" : "string",
+            "example" : ""
+          },
+          "containSampTempUnits" : {
+            "type" : "string",
+            "example" : "C"
+          },
+          "containRecPress" : {
+            "type" : "string",
+            "example" : ""
+          },
+          "containRecPressUnits" : {
+            "type" : "string",
+            "example" : "kPa"
+          },
+          "containRecTemp" : {
+            "type" : "string",
+            "example" : ""
+          },
+          "containRecTempUnits" : {
+            "type" : "string",
+            "example" : "C"
+          },
+          "saturationPress" : {
+            "type" : "string",
+            "example" : ""
+          },
+          "saturationPressUnits" : {
+            "type" : "string",
+            "example" : "kPa"
+          },
+          "saturationTemp" : {
+            "type" : "string",
+            "example" : ""
+          },
+          "saturationTempUnits" : {
+            "type" : "string",
+            "example" : "C"
+          },
+          "interval1Top" : {
+            "type" : "string",
+            "example" : "2086"
+          },
+          "interval1TopUnits" : {
+            "type" : "string",
+            "example" : "m"
+          },
+          "interval1Bot" : {
+            "type" : "string",
+            "example" : "2241"
+          },
+          "interval1BotUnits" : {
+            "type" : "string",
+            "example" : "m"
+          },
+          "interval2Top" : {
+            "type" : "string",
+            "example" : ""
+          },
+          "interval2TopUnits" : {
+            "type" : "string",
+            "example" : "m"
+          },
+          "interval2Bot" : {
+            "type" : "string",
+            "example" : ""
+          },
+          "interval2BotUnits" : {
+            "type" : "string",
+            "example" : "m"
+          },
+          "interval3Top" : {
+            "type" : "string",
+            "example" : ""
+          },
+          "interval3TopUnits" : {
+            "type" : "string",
+            "example" : "m"
+          },
+          "iInterval3Bot" : {
+            "type" : "string",
+            "example" : ""
+          },
+          "intervalUBotUnits" : {
+            "type" : "string",
+            "example" : "m"
+          },
+          "sampleAbsDens" : {
+            "type" : "string",
+            "example" : "747.6961361"
+          },
+          "sampleAbsDensUnits" : {
+            "type" : "string",
+            "example" : "kg/m3"
+          },
+          "sampleRelDens" : {
+            "type" : "string",
+            "example" : "0.748369669"
+          },
+          "sampleMolMass" : {
+            "type" : "string",
+            "example" : "106.6121519"
+          },
+          "sampleMolMassUnits" : {
+            "type" : "string",
+            "example" : "kg/kmol"
+          },
+          "SampleGHV" : {
+            "type" : "string",
+            "example" : "219.9899182"
+          },
+          "sampleGHVUnits" : {
+            "type" : "string",
+            "example" : "MJ/m3"
+          },
+          "sampleGEQ" : {
+            "type" : "string",
+            "example" : "0.165690947"
+          },
+          "sampleGEQUnits" : {
+            "type" : "string",
+            "example" : "1000m3/m3"
+          },
+          "C7PlusMolMass" : {
+            "type" : "string",
+            "example" : "113.4"
+          },
+          "C7PlusMolMassUnits" : {
+            "type" : "string",
+            "example" : "kg/kmol"
+          },
+          "C7PlusRelDens" : {
+            "type" : "string",
+            "example" : "0.766"
+          },
+          "C7PlusAbsDens" : {
+            "type" : "string",
+            "example" : "765"
+          },
+          "C7PlusAbsDensUnits" : {
+            "type" : "string",
+            "example" : "kg/m3"
+          },
+          "analStatus" : {
+            "type" : "string",
+            "example" : "Passed By Validator"
+          },
+          "analStatusReason" : {
+            "type" : "string",
+            "example" : "Close enough to be considered reasonable."
+          },
+          "analStatusReasonNote" : {
+            "type" : "string",
+            "example" : "ok"
+          },
+          "labH2SMethod" : {
+            "type" : "string",
+            "example" : ""
+          },
+          "labH2SPPM" : {
+            "type" : "string",
+            "example" : ""
+          },
+          "fieldH2SMethod" : {
+            "type" : "string",
+            "example" : ""
+          },
+          "fieldH2SPPM" : {
+            "type" : "string",
+            "example" : ""
+          },
+          "H2" : {
+            "type" : "string",
+            "example" : "m"
+          },
+          "He" : {
+            "type" : "string",
+            "example" : ""
+          },
+          "N2" : {
+            "type" : "string",
+            "example" : ""
+          },
+          "CO2" : {
+            "type" : "string",
+            "example" : ""
+          },
+          "H2S" : {
+            "type" : "string",
+            "example" : "0"
+          },
+          "C1" : {
+            "type" : "string",
+            "example" : "0"
+          },
+          "C2" : {
+            "type" : "string",
+            "example" : "0.0055"
+          },
+          "C3" : {
+            "type" : "string",
+            "example" : "0.0178"
+          },
+          "IC4" : {
+            "type" : "string",
+            "example" : "0.0081"
+          },
+          "NC4" : {
+            "type" : "string",
+            "example" : "0.0195"
+          },
+          "IC5" : {
+            "type" : "string",
+            "example" : "0.0142"
+          },
+          "NC5" : {
+            "type" : "string",
+            "example" : "0.0165"
+          },
+          "C6" : {
+            "type" : "string",
+            "example" : "0.0762"
+          },
+          "C7" : {
+            "type" : "string",
+            "example" : "0.135"
+          },
+          "C8" : {
+            "type" : "string",
+            "example" : "0.1579"
+          },
+          "C9" : {
+            "type" : "string",
+            "example" : "0.0899"
+          },
+          "C10" : {
+            "type" : "string",
+            "example" : "0.0643"
+          },
+          "C11" : {
+            "type" : "string",
+            "example" : "0.0283"
+          },
+          "C12" : {
+            "type" : "string",
+            "example" : "0.0118"
+          },
+          "C13" : {
+            "type" : "string",
+            "example" : "0.0057"
+          },
+          "C14" : {
+            "type" : "string",
+            "example" : "0.0032"
+          },
+          "C15" : {
+            "type" : "string",
+            "example" : "0.0017"
+          },
+          "C16" : {
+            "type" : "string",
+            "example" : "0.0007"
+          },
+          "C17" : {
+            "type" : "string",
+            "example" : "0.0003"
+          },
+          "C18" : {
+            "type" : "string",
+            "example" : "0.0001"
+          },
+          "C19" : {
+            "type" : "string",
+            "example" : "0"
+          },
+          "C20" : {
+            "type" : "string",
+            "example" : "0"
+          },
+          "C21" : {
+            "type" : "string",
+            "example" : "0"
+          },
+          "C22" : {
+            "type" : "string",
+            "example" : "0"
+          },
+          "C23" : {
+            "type" : "string",
+            "example" : "0"
+          },
+          "C24" : {
+            "type" : "string",
+            "example" : "0"
+          },
+          "C25" : {
+            "type" : "string",
+            "example" : "0"
+          },
+          "C26" : {
+            "type" : "string",
+            "example" : "0"
+          },
+          "C27" : {
+            "type" : "string",
+            "example" : "0"
+          },
+          "C28" : {
+            "type" : "string",
+            "example" : "0"
+          },
+          "C29" : {
+            "type" : "string",
+            "example" : "0"
+          },
+          "C30" : {
+            "type" : "string",
+            "example" : "0"
+          },
+          "benz" : {
+            "type" : "string",
+            "example" : "0.0129"
+          },
+          "tol" : {
+            "type" : "string",
+            "example" : "0.0808"
+          },
+          "ethlBenz" : {
+            "type" : "string",
+            "example" : "0.0081"
+          },
+          "MPXylene" : {
+            "type" : "string",
+            "example" : "0.06"
+          },
+          "oxylen" : {
+            "type" : "string",
+            "example" : "0.0122"
+          },
+          "triMethBenz" : {
+            "type" : "string",
+            "example" : "0.0072"
+          },
+          "cycPent" : {
+            "type" : "string",
+            "example" : "0.0053"
+          },
+          "neoHex" : {
+            "type" : "string",
+            "example" : ""
+          },
+          "methCycPent" : {
+            "type" : "string",
+            "example" : "0.0259"
+          },
+          "cycHex" : {
+            "type" : "string",
+            "example" : "0.0372"
+          },
+          "methCycHex" : {
+            "type" : "string",
+            "example" : "0.0937"
+          },
+          "notes" : {
+            "type" : "string",
+            "example" : "The sample was received at zero gauge pressure.  The analysis was performed on the liquid as-received."
+          },
+          "gis" : {
+            "type" : "object",
+            "properties" : {
+              "name" : {
+                "type" : "string",
+                "example" : ""
+              }
+            }
+          },
+          "shrinkage" : {
+            "type" : "object",
+            "properties" : {
+              "name" : {
+                "type" : "string",
+                "example" : ""
+              }
+            }
+          },
+          "density" : {
+            "type" : "object",
+            "properties" : {
+              "name" : {
+                "type" : "string",
+                "example" : ""
+              }
+            }
+          },
+          "waterContent" : {
+            "type" : "object",
+            "properties" : {
+              "name" : {
+                "type" : "string",
+                "example" : ""
+              }
+            }
+          },
+          "engineOil" : {
+            "type" : "object",
+            "properties" : {
+              "name" : {
+                "type" : "string",
+                "example" : ""
+              }
+            }
+          }
+        }
+      },
+      "MeterCalibration" : {
+        "type" : "object",
+        "properties" : {
+          "calibrationType" : {
+            "type" : "string",
+            "example" : "GAS"
+          }
+        }
+      },
+      "Meter" : {
+        "type" : "object",
+        "properties" : {
+          "ID" : {
+            "type" : "string",
+            "example" : "100/16-36-046-05W4/00 - G-FIT12B"
+          },
+          "description" : {
+            "type" : "string",
+            "example" : ""
+          },
+          "product" : {
+            "type" : "string",
+            "example" : "Oil",
+            "enum" : [ "Condensate", "Emulsion", "Oil", "Gas", "Glycol", "Water", "NGL", "LPG" ]
+          },
+          "tag" : {
+            "type" : "string",
+            "example" : "FIT12B"
+          },
+          "manufacturer" : {
+            "type" : "string",
+            "example" : "Control Microsystems"
+          },
+          "serialNo" : {
+            "type" : "string",
+            "example" : "T012833"
+          },
+          "modelNo" : {
+            "type" : "string",
+            "example" : "4102-DM22F101U-L"
+          },
+          "changerType" : {
+            "type" : "string",
+            "example" : ""
+          },
+          "plateSize" : {
+            "type" : "string",
+            "example" : ""
+          },
+          "volumeThroughput" : {
+            "type" : "string",
+            "example" : ""
+          },
+          "secondaryMeterInfo" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "meterType" : {
+                  "type" : "string",
+                  "enum" : [ "Static", "Differential", "Temperature", "Element", "RTU" ]
+                },
+                "elementManufacturer" : {
+                  "type" : "string",
+                  "example" : ""
+                },
+                "elementModelNo" : {
+                  "type" : "string",
+                  "example" : ""
+                },
+                "elementSerialNo" : {
+                  "type" : "string",
+                  "example" : ""
+                },
+                "elementSAPEquipmentID" : {
+                  "type" : "string",
+                  "example" : ""
+                },
+                "make" : {
+                  "type" : "string",
+                  "example" : ""
+                }
+              }
+            }
+          },
+          "relatedElementInfo" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "properties" : {
+                "meterType" : {
+                  "type" : "string",
+                  "enum" : [ "Static", "Temperature" ]
+                },
+                "elementManufacturer" : {
+                  "type" : "string",
+                  "example" : ""
+                },
+                "elementModelNo" : {
+                  "type" : "string",
+                  "example" : ""
+                },
+                "elementSerialNo" : {
+                  "type" : "string",
+                  "example" : ""
+                },
+                "elementSAPEquipmentID" : {
+                  "type" : "string",
+                  "example" : ""
+                }
+              }
+            }
+          }
+        }
+      },
+      "SamplePoint" : {
+        "type" : "object",
+        "properties" : {
+          "ID" : {
+            "type" : "string",
+            "example" : "13-27-042-08W5M"
+          },
+          "description" : {
+            "type" : "string",
+            "example" : ""
+          },
+          "product" : {
+            "type" : "string",
+            "example" : "Gas",
+            "enum" : [ "Condensate", "Emulsion", "Oil", "Gas", "Glycol", "Water", "NGL", "LPG" ]
+          },
+          "labSamplePointID" : {
+            "type" : "string",
+            "example" : " 21796G"
+          },
+          "vendor" : {
+            "type" : "string",
+            "example" : "Agat"
+          },
+          "primaryRequiredAnalysisType" : {
+            "type" : "string",
+            "example" : "C7+"
+          },
+          "secondaryRequiredAnalysisType" : {
+            "type" : "string",
+            "example" : "GIS"
+          },
+          "tertiaryRequiredAnalysisType" : {
+            "type" : "string",
+            "example" : "SF"
+          },
+          "frequency" : {
+            "type" : "string",
+            "example" : "24 month"
+          },
+          "volumeThroughput" : {
+            "type" : "string",
+            "example" : "<16.9e3m3"
+          },
+          "driver" : {
+            "type" : "string",
+            "example" : "Regular complaince sample analysis"
+          },
+          "delivery" : {
+            "type" : "string",
+            "example" : "Pipeline"
+          }
+        }
+      },
+      "WorkOrderNotification" : {
+        "type" : "object",
+        "properties" : {
+          "type" : {
+            "type" : "string",
+            "enum" : [ "MeterCalibration", "ProductAnalysis" ]
+          },
+          "workOrderID" : {
+            "type" : "string",
+            "example" : "123456"
+          },
+          "vendor" : {
+            "type" : "string",
+            "example" : "Tarpon"
+          },
+          "businessAssetID" : {
+            "type" : "string",
+            "example" : "6002305"
+          }
+        }
+      },
+      "ScheduleFrequency" : {
+        "type" : "object",
+        "properties" : {
+          "businessAssetID" : {
+            "type" : "string",
+            "example" : "123456"
+          },
+          "frequency" : {
+            "type" : "string",
+            "example" : "2 Months"
+          }
+        }
+      },
+      "Documents" : {
+        "type" : "object",
+        "properties" : {
+          "createDate" : {
+            "type" : "string",
+            "format" : "date-time",
+            "example" : "2018-06-01T14:20:28Z"
+          },
+          "requestedDate" : {
+            "type" : "string",
+            "format" : "date-time",
+            "example" : "2018-06-01T14:20:28Z"
+          },
+          "businessAssetID" : {
+            "type" : "string",
+            "example" : "66138218"
+          },
+          "product" : {
+            "type" : "string",
+            "example" : "Gas"
+          },
+          "idmsDocID" : {
+            "type" : "string",
+            "description" : "the unique IDMS id for this particular document",
+            "example" : "124356"
+          },
+          "documentType" : {
+            "type" : "string",
+            "enum" : [ "MeterCalibration", "ProductAnalysis" ],
+            "example" : "ProductAnalysis"
+          }
+        }
+      },
+      "Document" : {
+        "type" : "object",
+        "properties" : {
+          "document" : {
+            "type" : "string",
+            "format" : "binary",
+            "description" : "binary representation of the pdf document"
+          }
+        }
+      }
+    },
+    "securitySchemes" : {
+      "application" : {
+        "type" : "oauth2",
+        "flows" : {
+          "clientCredentials" : {
+            "tokenUrl" : "https://virtserver.swaggerhub.com/rktsolutions/vmc/0.3",
+            "scopes" : {
+              "write" : "allows modifying resources",
+              "read" : "allows reading resources"
+            }
+          }
+        }
+      }
+    }
+  }
+}
