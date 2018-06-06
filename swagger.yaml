@@ -3,7 +3,7 @@ openapi: 3.0.0
 servers:
 # Added by API Auto Mocking Plugin
 - description: SwaggerHub API Auto Mocking
-  url: https://virtserver.swaggerhub.com/huskyidms/vmc/v0.5
+  url: https://virtserver.swaggerhub.com/huskyidms/vmc/0.6
 - url: '{protocol}://api.idms.com/{version}'
   variables:
     protocol:
@@ -12,20 +12,20 @@ servers:
         - https
       default: https
     version:  
-      default: 'v0.5'
+      default: '0.6'
       
 info:
-  version: "v0.5"
+  version: "0.6"
   title: Meter Calibration and Sample Analysis API  
   description: IDMS Meter Calibration and Sample Analysis Interface
 security:
   - application:
-      - read
+      - read 
       - write
 paths:
   /sampleanalysis: 
     post: 
-      tags:   
+      tags:    
         - SampleAnalysis 
       summary: Create Sample Analysis 
       description: Create a sample Analysis Entry
@@ -1292,7 +1292,7 @@ components:
       type: oauth2
       flows:
         clientCredentials:
-          tokenUrl: 'https://virtserver.swaggerhub.com/huskyidms/vmc/v0.5'
+          tokenUrl: 'https://virtserver.swaggerhub.com/huskyidms/vmc/0.6'
           scopes:
             write: allows modifying resources
             read: allows reading resources
