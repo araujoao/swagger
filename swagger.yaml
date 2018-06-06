@@ -591,7 +591,7 @@ paths:
   /schedulle/frequency/query:
     get:
       tags: 
-        - Schedulle    
+        - Frequency    
       summary: get the latest changes in schedule using parameters
       description: 'get Schedulle Frequency changes from parameters. This functionality helps to improve     scheduling management in the ERP'
       parameters:
@@ -1292,7 +1292,7 @@ components:
       type: oauth2
       flows:
         clientCredentials:
-          tokenUrl: 'https://virtserver.swaggerhub.com/rktsolutions/vmc/0.3'
+          tokenUrl: 'https://virtserver.swaggerhub.com/huskyidms/vmc/v0.5'
           scopes:
             write: allows modifying resources
             read: allows reading resources
