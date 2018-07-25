@@ -3,7 +3,7 @@ openapi: 3.0.0
 servers:
 # Added by API Auto Mocking Plugin
 - description: SwaggerHub API Auto Mocking
-  url: https://virtserver.swaggerhub.com/huskyidms/vmc/0.6
+  url: https://virtserver.swaggerhub.com/huskyidms/vmc/0.7
 - url: '{protocol}://api.idms.com/{version}'
   variables:
     protocol:
@@ -12,65 +12,11 @@ servers:
         - https
       default: https
     version:  
-      default: '0.6'
-      
+      default: '0.7'  
 info:
-  version: "0.6"
+  version: "0.7"
   title: Meter Calibration and Sample Analysis API  
   description: IDMS Meter Calibration and Sample Analysis Interface
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                  
 security:
   - application:
       - read 
@@ -190,15 +136,29 @@ paths:
               type: string
           style: form
           explode: false
-        - name: dateStart
+        - name: dateStart #iso8601 
           in: query
-          description: Start Date of the result set requested
+          description: Start Date of the result set requested ISO 8601
+#         examples:
+#           withHourMin: 
+#             value: [2018-07-23T13:00Z]
+#           withTimeZone:
+#             value: [2018-07-23T13:00+01:00]
+#           withoutHour:
+#             value: [2018-07-23]          
           schema: 
             type: string
             format: date
-        - name: dateEnd
+        - name: dateEnd  #iso 8601
           in: query
           description: End Date of the result set requested
+#         examples:
+#           withHourMin: 
+#             value: [2018-07-23T13:00Z]
+#           withTimeZone:
+#             value: [2018-07-23T13:00+01:00]
+#           withoutHour:
+#             value: [2018-07-23]
           schema: 
             type: string
             format: date
@@ -641,61 +601,7 @@ paths:
               $ref: '#/components/schemas/WorkOrderNotification' 
         description: Created Work Order Notification object 
         required: true 
-  /schedulle/frequency/query:
-    get:
-      tags: 
-        - Frequency    
-      summary: get the latest changes in schedule using parameters
-      description: 'get Schedulle Frequency changes from parameters. This functionality helps to improve     scheduling management in the ERP'
-      parameters:
-        - name: dateStart
-          in: query
-          description: Start Date of the result set requested
-          schema: 
-            type: string
-            format: date
-        - name: dateEnd
-          in: query
-          description: End Date of the result set requested
-          schema: 
-            type: string
-            format: date
-        - name: page
-          in: query
-          description: if the query results span multiple pages, return this page.
-          schema:
-            type: integer
-            format: int32
-            default: 1
-        - name: pageSize
-          in: query
-          description: Number of results per page 
-          schema:
-            type: integer
-            format: int32
-            
-        - name: sortAsc
-          in: query
-          description: ascendent sort order attribute
-          schema:
-            type: string
-                  
-        - name: sortDesc
-          in: query
-          description: descendent sort order attribute
-          schema:
-            type: string
-      responses:
-        '200':
-          description: 'OK'
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ScheduleFrequency'         
-        '400': 
-          description: bad input parameter 
+ 
 components:
   schemas:
     SampleAnalysis: 
@@ -799,14 +705,32 @@ components:
           type: string
           example: 'Tucker' 
         dateSampledD:
-          type: string
-          example: '6/14/2017' 
+          type: string   #ISO 8601
+#         examples:
+#            withHourMin: 
+#             value: [2018-07-23T13:00Z]
+#           withTimeZone:
+#             value: [2018-07-23T13:00+01:00]
+#           withoutHour:
+#             value: [2018-07-23]
         dateReceivedD:
-          type: string
-          example: '6/15/2017' 
+          type:  string
+#         examples:
+#           withHourMin: 
+#             value: [2018-07-23T13:00Z]
+#           withTimeZone:
+#             value: [2018-07-23T13:00+01:00]
+#           withoutHour:
+#             value: [2018-07-23]
         dateAnalyzedD:
           type: string
-          example: '6/21/2017' 
+#         examples:
+#           withHourMin: 
+#             value: [2018-07-23T13:00Z]
+#           withTimeZone:
+#             value: [2018-07-23T13:00+01:00]
+#           withoutHour:
+#             value: [2018-07-23]
         sourceDesc:
           type: string
           example: 'Separator - 1 inch ball valve D/S meter' 
@@ -1145,10 +1069,10 @@ components:
       properties: 
         ID: 
           type: string 
-          example: '121/03-09-044-23W3 - G-FIT12B'
-        ERPID:
+          example: '121/03-09-044-23W3 - G02M'
+        AssetID:
           type: string
-          description: 'The identification of the meter in the ERP Solution'
+          description: 'The identification of the meter in the asset management Solution'
           example: '62060196'
         description:
           type: string 
@@ -1179,10 +1103,14 @@ components:
           type: string
           description: 'the facility where the meter is located ' #H1-04-005-00001 - WILDMERE 10-19 BATTERY
           example: 'H1-04-005-00001'
+        province:
+          type: string
+          description: 'The province where the meter is located'
+          example: 'AB'
         product:
           type: string
           example: 'Oil'
-          enum: 
+          enum:   #The list below is going to be updated
             - Condensate
             - Emulsion
             - Oil
@@ -1204,83 +1132,34 @@ components:
         modelNo:
           type: string
           example: '4102-DM22F101U-L'
-        changerType:
+        meterType:
           type: string
-          example: ''
+          example: 'Orifice'
           enum:
-            - Simplex
-            - Duplex
-            - Flange
+            - Orifice
+            - VTube
+            - PositiveDisplacement
+            - Turbine
+            - Swirl
+            - Ultrasonic
+            - Magnetic
+            - Thermal
+            - Coriolis
+            - Analyzer
+            - Other
             - NotApplicable
-        plateSize:
-          type: string
-          example: '' 
-        volumeThroughput:
-          type: string
-          example: ''
-        secondaryMeterInfo:
-          type: array
-          items:
-            type: object
-            properties:
-              meterType:
-                type: string
-                enum:
-                  - Static
-                  - Differential
-                  - Temperature
-                  - Element
-                  - RTU
-                  - NotApplicable 
-              elementManufacturer:
-                type: string
-                example: ''
-              elementModelNo:
-                type: string
-                example: ''
-              elementSerialNo:
-                type: string
-                example: ''
-              elementSAPEquipmentID:
-                type: string 
-                example: ''
-              make:
-                type: string 
-                example: ''
-        relatedElementInfo:
-            type: array
-            items:
-              type: object
-              properties:
-                meterType:
-                  type: string
-                  enum:
-                    - Static
-                    - Temperature
-                elementManufacturer:
-                  type: string
-                  example: ''
-                elementModelNo:
-                  type: string
-                  example: ''
-                elementSerialNo:
-                  type: string
-                  example: ''   
-                elementSAPEquipmentID:
-                  type: string
-                  example: ''  
     SamplePoint:
       type: object
       properties:   
         ID: 
           type: string
-          example: '13-27-042-08W5M - O-LSPV-12A'
+          example: '13-27-042-08W5M - G02S'
         description: 
           type: string 
-          example: '' 
-        ERPID:
+          example: 'Sample point at the corner of rebimboca da parafuzeta' 
+        assetID:
           type: string
-          description: 'The identification of the meter in the ERP Solution'
+          description: 'The identification of the sample point in the asset management Solution'
           example: '62060197'          
         surfaceLocation:
           type: string
@@ -1308,6 +1187,10 @@ components:
           type: string
           description: 'the facility where the SP is located ' #H1-04-005-00001 - WILDMERE 10-19 BATTERY
           example: 'H1-04-005-00001'          
+        province:
+          type: string
+          description: 'The province where the sample point is located'
+          example: 'AB'
         product: 
           type: string 
           example: 'Gas' 
@@ -1330,64 +1213,89 @@ components:
         vendor:
           type: string
           example: 'Agat'
-        primaryRequiredAnalysisType:
-          type: string
-          example: 'C7+'
-        secondaryRequiredAnalysisType:
-          type: string
-          example: 'GIS'
-        tertiaryRequiredAnalysisType:
-          type: string
-          example: 'SF'
         frequency:
           type: string
           example: '24 month'
-        volumeThroughput:
-          type: string
-          example: '<16.9e3m3' 
-        driver:
-          type: string
-          example: 'Regular complaince sample analysis'
-        delivery:
-          type: string
-          example: 'Pipeline'
     WorkOrderNotification:
       type: object
       properties: 
-        type:
+        activityType:
           type: string
           enum:
-            - MeterCalibration
-            - ProductAnalysis
-        workOrderID: 
+            - ZCL
+            - ZPA
+            - ZINP
+        workOrderINumber: 
           type: string 
           example: '123456'
-        vendor:
+        orderType:
           type: string
-          example: 'Tarpon'
-        businessAssetID:
+          example: 'MRX1'
+        assetID:
           type: string
+          description: 'The equipment number(sample point, meter) in the Asset Management Solution'
           example: '6002305'
-    ScheduleFrequency:
-      type: object
-      properties: 
-        businessAssetID: 
-          type: string 
-          example: '123456'
-        frequency:
+        description:
           type: string
-          example: '2 Months'
+          description: 'The work order description'
+          example: '6002305'
+        createDate:
+          type: string
+          description: 'Creation Date - format ISO 8601 '#
+#          examples:
+#            withHourMin: 
+#              value: [2018-07-23T13:00Z]
+#           withTimeZone:
+#             value: [2018-07-23T13:00+01:00]
+#           withoutHour:
+#             value: [2018-07-23]
+        floc:
+          type: string
+          description: 'The hierarchy where the meter is located e.g. H1-04-005-00001-100005 '
+          example: 'H1-04-005-00001-100005'
+        businessUnit:
+          type: string
+          description: 'the business unit where the meter is located ' #H1 - HEAVY OIL AND GAS LLOYDMINSTER
+          example: 'H1'
+        district:
+          type: string
+          description: 'the district where the meter is located ' #H1-04 - ALBERTA SOUTH
+          example: 'H1-04'
+        area:
+          type: string
+          description: 'the area in the district where the meter is located ' #H1-04-005 - WILDMERE
+          example: 'H1-04-005' 
+        facility:
+          type: string
+          description: 'the facility where the meter is located ' #H1-04-005-00001 - WILDMERE 10-19 BATTERY
+          example: 'H1-04-005-00001'
+        province:
+          type: string
+          description: 'The province where the meter is located'
+          example: 'AB'          
     Documents:
       type: object
       properties:
         createDate:
-          type: string
+          type: string #ISO 8601
           format: date-time
-          example: '2018-06-01T14:20:28Z' #rtf 3339 standard
+#         examples:
+#           withHourMin: 
+#             value: [2018-07-23T13:00Z]
+#           withTimeZone:
+#             value: [2018-07-23T13:00+01:00]
+#           withoutHour:
+#             value: [2018-07-23]          
         requestedDate:
-          type: string
+          type: string  #ISO 8601 
           format: date-time
-          example: '2018-06-01T14:20:28Z' #rtf 3339 standard
+#         examples:
+#           withHourMin: 
+#             value: [2018-07-23T13:00Z]
+#           withTimeZone:
+#             value: [2018-07-23T13:00+01:00]
+#           withoutHour:
+#             value: [2018-07-23]
         businessAssetID:
           type: string
           example: '66138218'  #ex. Asset Solution(ex.SAP) Asset Number
