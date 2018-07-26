@@ -139,6 +139,7 @@ paths:
         - name: dateStart #iso8601 
           in: query
           description: Start Date of the result set requested ISO 8601
+          example: '2018-07-23'           
 #         examples:
 #           withHourMin: 
 #             value: [2018-07-23T13:00Z]
@@ -152,6 +153,7 @@ paths:
         - name: dateEnd  #iso 8601
           in: query
           description: End Date of the result set requested
+          example: '2018-07-23'        
 #         examples:
 #           withHourMin: 
 #             value: [2018-07-23T13:00Z]
@@ -706,7 +708,8 @@ components:
           example: 'Tucker' 
         dateSampledD:
           type: string   #ISO 8601
-#         examples:
+          format: date-time
+          example: '2018-07-23T13:00Z'   #2018-07-23T13:00+01:00, 2018-07-23#         examples:
 #            withHourMin: 
 #             value: [2018-07-23T13:00Z]
 #           withTimeZone:
@@ -714,7 +717,9 @@ components:
 #           withoutHour:
 #             value: [2018-07-23]
         dateReceivedD:
-          type:  string
+          type: string  #ISO 8601 
+          format: date-time
+          example: '2018-07-23T13:00Z'   #2018-07-23T13:00+01:00, 2018-07-23
 #         examples:
 #           withHourMin: 
 #             value: [2018-07-23T13:00Z]
@@ -723,7 +728,9 @@ components:
 #           withoutHour:
 #             value: [2018-07-23]
         dateAnalyzedD:
-          type: string
+          type: string  #ISO 8601 
+          format: date-time
+          example: '2018-07-23T13:00Z'   #2018-07-23T13:00+01:00, 2018-07-23
 #         examples:
 #           withHourMin: 
 #             value: [2018-07-23T13:00Z]
@@ -1087,22 +1094,6 @@ components:
           type: string
           description: 'The hierarchy where the meter is located e.g. H1-04-005-00001-100005 '
           example: 'H1-04-005-00001-100005'
-        businessUnit:
-          type: string
-          description: 'the business unit where the meter is located ' #H1 - HEAVY OIL AND GAS LLOYDMINSTER
-          example: 'H1'
-        district:
-          type: string
-          description: 'the district where the meter is located ' #H1-04 - ALBERTA SOUTH
-          example: 'H1-04'
-        area:
-          type: string
-          description: 'the area in the district where the meter is located ' #H1-04-005 - WILDMERE
-          example: 'H1-04-005' 
-        facility:
-          type: string
-          description: 'the facility where the meter is located ' #H1-04-005-00001 - WILDMERE 10-19 BATTERY
-          example: 'H1-04-005-00001'
         province:
           type: string
           description: 'The province where the meter is located'
@@ -1171,22 +1162,6 @@ components:
           type: string
           description: 'The hierarchy where the SP is located e.g. H1-04-005-00001-100005 '
           example: 'H1-04-005-00001-100005'
-        businessUnit:
-          type: string
-          description: 'the business unit where the SP is located ' #H1 - HEAVY OIL AND GAS LLOYDMINSTER
-          example: 'H1'
-        district:
-          type: string
-          description: 'the district where the SP is located ' #H1-04 - ALBERTA SOUTH
-          example: 'H1-04'
-        area:
-          type: string
-          description: 'the area in the district where the SP is located ' #H1-04-005 - WILDMERE
-          example: 'H1-04-005' 
-        facility:
-          type: string
-          description: 'the facility where the SP is located ' #H1-04-005-00001 - WILDMERE 10-19 BATTERY
-          example: 'H1-04-005-00001'          
         province:
           type: string
           description: 'The province where the sample point is located'
@@ -1240,8 +1215,10 @@ components:
           description: 'The work order description'
           example: '6002305'
         createDate:
-          type: string
-          description: 'Creation Date - format ISO 8601 '#
+          description: 'Creation Date - format ISO 8601 '
+          type: string  #ISO 8601 
+          format: date-time
+          example: '2018-07-23T13:00Z'   #2018-07-23T13:00+01:00, 2018-07-23          
 #          examples:
 #            withHourMin: 
 #              value: [2018-07-23T13:00Z]
@@ -1279,6 +1256,7 @@ components:
         createDate:
           type: string #ISO 8601
           format: date-time
+          example: '2018-07-23T13:00Z'   #2018-07-23T13:00+01:00, 2018-07-23
 #         examples:
 #           withHourMin: 
 #             value: [2018-07-23T13:00Z]
@@ -1289,6 +1267,7 @@ components:
         requestedDate:
           type: string  #ISO 8601 
           format: date-time
+          example: '2018-07-23T13:00Z'   #2018-07-23T13:00+01:00, 2018-07-23
 #         examples:
 #           withHourMin: 
 #             value: [2018-07-23T13:00Z]
