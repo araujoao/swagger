@@ -140,13 +140,6 @@ paths:
           in: query
           description: Start Date of the result set requested ISO 8601
           example: '2018-07-23'           
-#         examples:
-#           withHourMin: 
-#             value: [2018-07-23T13:00Z]
-#           withTimeZone:
-#             value: [2018-07-23T13:00+01:00]
-#           withoutHour:
-#             value: [2018-07-23]          
           schema: 
             type: string
             format: date
@@ -154,13 +147,6 @@ paths:
           in: query
           description: End Date of the result set requested
           example: '2018-07-23'        
-#         examples:
-#           withHourMin: 
-#             value: [2018-07-23T13:00Z]
-#           withTimeZone:
-#             value: [2018-07-23T13:00+01:00]
-#           withoutHour:
-#             value: [2018-07-23]
           schema: 
             type: string
             format: date
@@ -709,24 +695,11 @@ components:
         dateSampledD:
           type: string   #ISO 8601
           format: date-time
-          example: '2018-07-23T13:00Z'   #2018-07-23T13:00+01:00, 2018-07-23#         examples:
-#            withHourMin: 
-#             value: [2018-07-23T13:00Z]
-#           withTimeZone:
-#             value: [2018-07-23T13:00+01:00]
-#           withoutHour:
-#             value: [2018-07-23]
+          example: '2018-07-23T13:00Z'   #2018-07-23T13:00+01:00, 2018-07-23
         dateReceivedD:
           type: string  #ISO 8601 
           format: date-time
           example: '2018-07-23T13:00Z'   #2018-07-23T13:00+01:00, 2018-07-23
-#         examples:
-#           withHourMin: 
-#             value: [2018-07-23T13:00Z]
-#           withTimeZone:
-#             value: [2018-07-23T13:00+01:00]
-#           withoutHour:
-#             value: [2018-07-23]
         dateAnalyzedD:
           type: string  #ISO 8601 
           format: date-time
@@ -1218,14 +1191,7 @@ components:
           description: 'Creation Date - format ISO 8601 '
           type: string  #ISO 8601 
           format: date-time
-          example: '2018-07-23T13:00Z'   #2018-07-23T13:00+01:00, 2018-07-23          
-#          examples:
-#            withHourMin: 
-#              value: [2018-07-23T13:00Z]
-#           withTimeZone:
-#             value: [2018-07-23T13:00+01:00]
-#           withoutHour:
-#             value: [2018-07-23]
+          example: '2018-07-23T13:00Z'   #2018-07-23T13:00+01:00, 2018-07-23  
         floc:
           type: string
           description: 'The hierarchy where the meter is located e.g. H1-04-005-00001-100005 '
@@ -1257,24 +1223,10 @@ components:
           type: string #ISO 8601
           format: date-time
           example: '2018-07-23T13:00Z'   #2018-07-23T13:00+01:00, 2018-07-23
-#         examples:
-#           withHourMin: 
-#             value: [2018-07-23T13:00Z]
-#           withTimeZone:
-#             value: [2018-07-23T13:00+01:00]
-#           withoutHour:
-#             value: [2018-07-23]          
         requestedDate:
           type: string  #ISO 8601 
           format: date-time
           example: '2018-07-23T13:00Z'   #2018-07-23T13:00+01:00, 2018-07-23
-#         examples:
-#           withHourMin: 
-#             value: [2018-07-23T13:00Z]
-#           withTimeZone:
-#             value: [2018-07-23T13:00+01:00]
-#           withoutHour:
-#             value: [2018-07-23]
         businessAssetID:
           type: string
           example: '66138218'  #ex. Asset Solution(ex.SAP) Asset Number
